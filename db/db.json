@@ -4,5 +4,12 @@
     "nickname": "test",
     "speciality": "test speciality",
     "image": "test.png"
-  }
+  },
+  {
+    "id": 1,
+    "nickname": "test2",
+    "speciality": "test speciality",
+    "image": "test.png"
+  },
+  { "id": 3, "nickname": "de", "image": "de", "speciality": "test" }
 ]

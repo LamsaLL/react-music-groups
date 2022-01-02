@@ -10,7 +10,6 @@ const dbPath = `${process.cwd()}/db/db.json`;
 
 router.post("/musician", (req, res) => {
   const newMusician = req.body;
-  console.log(req.body);
   //write to the db.json file
   fs.readFile(dbPath, "utf8", (err, data) => {
     if (err) {

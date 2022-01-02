@@ -1,10 +1,40 @@
-[
-  null,
-  null,
-  null,
-  { "id": 3, "nickname": "test3m", "image": "edz", "speciality": "bassiste" },
-  null,
-  { "id": 5, "nickname": "test6", "image": "de", "speciality": "chanteur" },
-  null,
-  { "id": 7, "nickname": "test8", "image": "rez", "speciality": "compositeur" }
-]
+{
+  "musicians": [
+    null,
+    null,
+    null,
+    { "id": 3, "nickname": "test3m", "image": "edz", "speciality": "bassiste" },
+    null,
+    { "id": 5, "nickname": "test6", "image": "de", "speciality": "chanteur" },
+    null,
+    null,
+    {
+      "id": 8,
+      "nickname": "fzezfzfezzezf",
+      "image": "de",
+      "speciality": "vocaliste"
+    }
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "name": "group1",
+      "image": "de",
+      "description": "test1",
+      "musicians": [
+        {
+          "id": 1,
+          "nickname": "test1",
+          "image": "de",
+          "speciality": "guitariste"
+        },
+        {
+          "id": 2,
+          "nickname": "test2",
+          "image": "de",
+          "speciality": "guitariste"
+        }
+      ]
+    }
+  ]
+}

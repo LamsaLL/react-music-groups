@@ -10,7 +10,7 @@ router.get("/musicians", (req, res) => {
       console.log(err);
       res.status(500).send("Server Error");
     } else {
-      const musicians = JSON.parse(data);
+      const musicians = JSON.parse(data).musicians;
       res.status(200).send(musicians);
     }
   });

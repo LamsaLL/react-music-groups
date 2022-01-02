@@ -11,7 +11,7 @@ router.get("/musician/:id", (req, res) => {
       res.status(500).send("Server Error");
     } else {
       const musicianId = req.params.id;
-      const db = JSON.parse(data);
+      const db = JSON.parse(data).musicians;
       //find musician with id
       const musician = db[musicianId];
       if (musician) {
@@ -32,10 +32,12 @@ router.post("/musician", (req, res) => {
       res.status(500).send("Server Error");
     } else {
       const db = JSON.parse(data);
+      const musicians = JSON.parse(data).musicians;
       //add id to new musician
-      newMusician.id = db.length;
+      newMusician.id = musicians.length;
 
-      db.push(newMusician);
+      db.musicians.push(newMusician);
+
       fs.writeFile(dbPath, JSON.stringify(db), (err) => {
         if (err) {
           console.log(err);
@@ -61,11 +63,12 @@ router.patch("/musician/:id", (req, res) => {
       res.status(500).send("Server Error");
     } else {
       const db = JSON.parse(data);
+
       if (id === -1) {
         res.status(404).send("Musician not found");
       } else {
-        db[id] = {
-          ...db[id],
+        db.musicians[id] = {
+          ...db.musicians[id],
           ...body,
         };
         fs.writeFile(dbPath, JSON.stringify(db), (err) => {
@@ -73,7 +76,7 @@ router.patch("/musician/:id", (req, res) => {
             console.log(err);
             res.status(500).send("Server Error");
           } else {
-            res.status(200).send(db[id]);
+            res.status(200).send(db.musicians[id]);
           }
         });
       }
@@ -95,13 +98,13 @@ router.delete("/musician/:id", (req, res) => {
       if (id === -1) {
         res.status(404).send("Musician not found");
       } else {
-        db[id] = null;
+        db.musicians[id] = null;
         fs.writeFile(dbPath, JSON.stringify(db), (err) => {
           if (err) {
             console.log(err);
             res.status(500).send("Server Error");
           } else {
-            res.status(200).send(db);
+            res.status(200).send(db.musicians);
           }
         });
       }

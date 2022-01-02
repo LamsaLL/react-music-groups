@@ -5,7 +5,7 @@
     null,
     { "id": 3, "nickname": "test3m", "image": "edz", "speciality": "bassiste" },
     null,
-    { "id": 5, "nickname": "test6", "image": "de", "speciality": "chanteur" },
+    null,
     null,
     null,
     {
@@ -35,6 +35,15 @@
           "speciality": "guitariste"
         }
       ]
-    }
+    },
+    null,
+    null,
+    {
+      "name": "group2",
+      "image": "dzadaz",
+      "description": "dzadazdazd",
+      "id": 3
+    },
+    { "name": "group3", "image": "fezfez", "description": "fezfez", "id": 4 }
   ]
 }

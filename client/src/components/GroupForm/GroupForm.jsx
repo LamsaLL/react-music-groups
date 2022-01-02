@@ -3,15 +3,7 @@ import { Container, Form, Modal, Button, Dropdown } from "semantic-ui-react";
 
 const GroupForm = ({ buttonTrigger, id }) => {
   const [group, setGroup] = useState(undefined);
-
-  //if id is defined we fetch the group with the id
-  useEffect(() => {
-    if (id !== undefined) {
-      fetch(`http://localhost:3001/group/${id}`)
-        .then((response) => response.json())
-        .then((data) => setGroup(data));
-    }
-  }, [id]);
+  const [open, setOpen] = React.useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -32,6 +24,8 @@ const GroupForm = ({ buttonTrigger, id }) => {
       })
         .then((response) => response.json())
         .then((data) => console.log(data));
+
+      setOpen(false);
     } else {
       const formData = new FormData(e.target);
       const group = {
@@ -50,14 +44,32 @@ const GroupForm = ({ buttonTrigger, id }) => {
       })
         .then((response) => response.json())
         .then((data) => console.log(data));
+
+      setOpen(false);
     }
   };
+
+  //if id is defined we fetch the group with the id
+  useEffect(() => {
+    if (id !== undefined) {
+      fetch(`http://localhost:3001/group/${id}`)
+        .then((response) => response.json())
+        .then((data) => setGroup(data));
+    }
+  }, [id]);
 
   return (
     <>
       <Container>
         <Form>
-          <Modal as={Form} onSubmit={handleSubmit} trigger={buttonTrigger}>
+          <Modal
+            as={Form}
+            onSubmit={handleSubmit}
+            onClose={() => setOpen(false)}
+            onOpen={() => setOpen(true)}
+            open={open}
+            trigger={buttonTrigger}
+          >
             <Modal.Header>
               {id !== undefined ? "Modifier un groupe" : "Ajouter un groupe"}
             </Modal.Header>

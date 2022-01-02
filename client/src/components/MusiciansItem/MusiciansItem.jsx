@@ -7,11 +7,6 @@ import MusicianForm from "../MusicianForm/MusicianForm";
 const MusiciansItem = () => {
   //get all musicians with fetch useEffect
   const [musicians, setMusicians] = useState([]);
-  useEffect(() => {
-    fetch("http://localhost:3001/musicians")
-      .then((response) => response.json())
-      .then((data) => setMusicians(data.filter((x) => x)));
-  }, []);
 
   //delete musician on button click
   const handleDelete = (id) => {
@@ -21,6 +16,12 @@ const MusiciansItem = () => {
       .then((response) => response.json())
       .then((data) => console.log(data));
   };
+
+  useEffect(() => {
+    fetch("http://localhost:3001/musicians")
+      .then((response) => response.json())
+      .then((data) => setMusicians(data.filter((x) => x)));
+  }, []);
 
   return (
     <Item.Group>

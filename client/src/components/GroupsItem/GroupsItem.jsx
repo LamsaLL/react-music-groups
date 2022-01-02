@@ -1,10 +1,18 @@
 import React from "react";
 import { Button, Image, Item } from "semantic-ui-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Popup } from "semantic-ui-react";
 import GroupForm from "../GroupForm/GroupForm.jsx";
 
 const GroupsItem = () => {
+  //delete groups on button click
+  const handleDelete = useCallback((id) => {
+    fetch(`http://localhost:3001/group/${id}`, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+  }, []);
   //get all groups with fetch useEffect
   const [groups, setGroups] = useState([]);
   useEffect(() => {
@@ -12,15 +20,6 @@ const GroupsItem = () => {
       .then((response) => response.json())
       .then((data) => setGroups(data.filter((x) => x)));
   }, []);
-
-  //delete groups on button click
-  const handleDelete = (id) => {
-    fetch(`http://localhost:3001/groups/${id}`, {
-      method: "DELETE",
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data));
-  };
 
   return (
     <Item.Group>
@@ -35,7 +34,7 @@ const GroupsItem = () => {
           <Item.Content>
             <Item.Header as="a">{group.name}</Item.Header>
 
-            <Item.Description>{group.Description}</Item.Description>
+            <Item.Description>{group.description}</Item.Description>
             <Item.Extra>
               <Button
                 basic

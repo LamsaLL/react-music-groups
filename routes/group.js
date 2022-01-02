@@ -95,7 +95,7 @@ router.delete("/group/:id", (req, res) => {
     } else {
       //set element null if id match with id of element
       const db = JSON.parse(data);
-      if (id === -1) {
+      if (id < 0) {
         res.status(404).send("Group not found");
       } else {
         db.groups[id] = null;

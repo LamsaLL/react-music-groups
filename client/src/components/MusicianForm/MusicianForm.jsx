@@ -11,6 +11,7 @@ const MusicianForm = ({ buttonTrigger, id }) => {
   ];
 
   const [musician, setMusician] = useState(undefined);
+  const [open, setOpen] = React.useState(false);
 
   //if id is defined we fetch the musician with the id
   useEffect(() => {
@@ -45,10 +46,11 @@ const MusicianForm = ({ buttonTrigger, id }) => {
       })
         .then((response) => response.json())
         .then((data) => console.log(data));
+
+      setOpen(false);
     } else {
       const formData = new FormData(e.target);
       const musician = {
-        id: "null",
         nickname: formData.get("nickname"),
         image: formData.get("image"),
         //get speciality value from dropdown
@@ -65,6 +67,8 @@ const MusicianForm = ({ buttonTrigger, id }) => {
       })
         .then((response) => response.json())
         .then((data) => console.log(data));
+
+      setOpen(false);
     }
   };
 
@@ -72,7 +76,14 @@ const MusicianForm = ({ buttonTrigger, id }) => {
     <>
       <Container>
         <Form>
-          <Modal as={Form} onSubmit={handleSubmit} trigger={buttonTrigger}>
+          <Modal
+            as={Form}
+            onSubmit={handleSubmit}
+            onClose={() => setOpen(false)}
+            onOpen={() => setOpen(true)}
+            open={open}
+            trigger={buttonTrigger}
+          >
             <Modal.Header>
               {id !== undefined
                 ? "Modifier un musicien"

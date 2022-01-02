@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Container, Form, Modal, Button, Dropdown } from "semantic-ui-react";
 
-const MusicianForm = () => {
+const MusicianForm = ({ buttonTrigger, id }) => {
   const specialityOptions = [
     { key: "guitarrist", text: "Guitariste", value: "guitariste" },
     { key: "bassist", text: "Bassiste", value: "bassiste" },
@@ -10,50 +10,80 @@ const MusicianForm = () => {
     { key: "composer", text: "Compositeur", value: "compositeur" },
   ];
 
-  const [specialityValue, setValue] = useState(specialityOptions[0].value);
+  const [musician, setMusician] = useState(undefined);
+
+  //if id is defined we fetch the musician with the id
+  useEffect(() => {
+    if (id !== undefined) {
+      fetch(`http://localhost:3001/musician/${id}`)
+        .then((response) => response.json())
+        .then((data) => setMusician(data));
+    }
+  }, [id]);
+
+  const [specialityValue, setSpecialityValue] = useState(
+    specialityOptions[0].value
+  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (id !== undefined) {
+      const formData = new FormData(e.target);
+      const musician = {
+        nickname: formData.get("nickname"),
+        image: formData.get("image"),
+        //get speciality value from dropdown
+        speciality: specialityValue,
+      };
 
-    const formData = new FormData(e.target);
-    console.log(formData.get("speciality"));
-    const musician = {
-      id: "null",
-      nickname: formData.get("nickname"),
-      image: formData.get("image"),
-      //get speciality value from dropdown
-      speciality: specialityValue,
-    };
-    // Affiche les valeurs
-    console.log(musician);
-    fetch("http://localhost:3001/musician", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-      body: JSON.stringify(musician),
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data));
+      fetch(`http://localhost:3001/musician/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(musician),
+      })
+        .then((response) => response.json())
+        .then((data) => console.log(data));
+    } else {
+      const formData = new FormData(e.target);
+      const musician = {
+        id: "null",
+        nickname: formData.get("nickname"),
+        image: formData.get("image"),
+        //get speciality value from dropdown
+        speciality: specialityValue,
+      };
+
+      fetch("http://localhost:3001/musician", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+        body: JSON.stringify(musician),
+      })
+        .then((response) => response.json())
+        .then((data) => console.log(data));
+    }
   };
 
   return (
     <>
       <Container>
         <Form>
-          <Modal
-            as={Form}
-            onSubmit={handleSubmit}
-            trigger={<Button floated="right">Ajouter</Button>}
-          >
-            <Modal.Header>Ajouter un musicien</Modal.Header>
+          <Modal as={Form} onSubmit={handleSubmit} trigger={buttonTrigger}>
+            <Modal.Header>
+              {id !== undefined
+                ? "Modifier un musicien"
+                : "Ajouter un musicien"}
+            </Modal.Header>
             <Modal.Content>
               <Form.Input
                 fluid
                 name="nickname"
                 label="Surnom"
-                placeholder="Entrez un surnom"
+                placeholder={musician ? musician.nickname : "Entrez un surnom"}
                 required={true}
                 id="form-input-first-name"
               />
@@ -61,7 +91,7 @@ const MusicianForm = () => {
                 fluid
                 name="image"
                 label="Image"
-                placeholder="Choisissez une image"
+                placeholder={musician ? musician.image : "Choisissez une image"}
                 required={true}
               />
               <Form.Dropdown
@@ -69,10 +99,12 @@ const MusicianForm = () => {
                 selection
                 name="speciality"
                 label="Specialité"
-                placeholder="Choisissez une spécialité"
+                placeholder={
+                  musician ? musician.speciality : "Choisissez une spécialité"
+                }
                 required={true}
                 options={specialityOptions}
-                onChange={(e, { value }) => setValue(value)}
+                onChange={(e, { value }) => setSpecialityValue(value)}
               />
             </Modal.Content>
             <Modal.Actions>

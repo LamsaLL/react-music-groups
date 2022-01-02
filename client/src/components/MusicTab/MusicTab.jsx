@@ -6,12 +6,12 @@ const panes = [
   {
     menuItem: "Musiciens",
     render: () => {
-      const handleChange = () => {};
-
       return (
         <Tab.Pane>
           <h1>Musiciens</h1>
-          <MusicianForm />
+          <MusicianForm
+            buttonTrigger={<Button floated="right">Ajouter</Button>}
+          />
           <MusiciansItem></MusiciansItem>
         </Tab.Pane>
       );

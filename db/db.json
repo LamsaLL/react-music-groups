@@ -1,15 +1,10 @@
 [
-  {
-    "id": 0,
-    "nickname": "test",
-    "speciality": "test speciality",
-    "image": "test.png"
-  },
-  {
-    "id": 1,
-    "nickname": "test2",
-    "speciality": "test speciality",
-    "image": "test.png"
-  },
-  { "id": 3, "nickname": "de", "image": "de", "speciality": "test" }
+  null,
+  null,
+  null,
+  { "id": 3, "nickname": "test3m", "image": "edz", "speciality": "bassiste" },
+  null,
+  { "id": 5, "nickname": "test6", "image": "de", "speciality": "chanteur" },
+  null,
+  { "id": 7, "nickname": "test8", "image": "rez", "speciality": "compositeur" }
 ]

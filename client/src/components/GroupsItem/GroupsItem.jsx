@@ -19,7 +19,7 @@ const GroupsItem = () => {
     fetch("http://localhost:3001/groups")
       .then((response) => response.json())
       .then((data) => setGroups(data.filter((x) => x)));
-  }, []);
+  }, [handleDelete]);
 
   return (
     <Item.Group>

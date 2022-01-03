@@ -21,7 +21,7 @@ const MusiciansItem = () => {
     fetch("http://localhost:3001/musicians")
       .then((response) => response.json())
       .then((data) => setMusicians(data.filter((x) => x)));
-  }, []);
+  }, [handleDelete]);
 
   return (
     <Item.Group>
@@ -31,7 +31,7 @@ const MusiciansItem = () => {
             content={`Surnom: ${musician.nickname}`}
             on="click"
             pinned
-            trigger={<Item.Image size="small" src={musician.image} />}
+            trigger={<Item.Image size="tiny" src={musician.image} />}
           />
           <Item.Content>
             <Item.Header as="a">{musician.nickname}</Item.Header>

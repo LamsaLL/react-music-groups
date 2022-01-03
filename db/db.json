@@ -3,16 +3,21 @@
     null,
     null,
     null,
-    { "id": 3, "nickname": "test3m", "image": "edz", "speciality": "bassiste" },
+    {
+      "id": 3,
+      "nickname": "test3m",
+      "image": "https://react.semantic-ui.com/images/avatar/small/elliot.jpg",
+      "speciality": "bassiste"
+    },
     null,
     null,
     null,
     null,
     {
       "id": 8,
-      "nickname": "fzezfzfezzezf",
-      "image": "de",
-      "speciality": "vocaliste"
+      "nickname": "dsd",
+      "image": "https://react.semantic-ui.com/images/avatar/small/stevie.jpg",
+      "speciality": "chanteur"
     }
   ],
   "groups": [

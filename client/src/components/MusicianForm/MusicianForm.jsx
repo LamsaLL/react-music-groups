@@ -10,6 +10,33 @@ const MusicianForm = ({ buttonTrigger, id }) => {
     { key: "composer", text: "Compositeur", value: "compositeur" },
   ];
 
+  const imageOptions = [
+    {
+      value: "elliot",
+      text: "Ellliot",
+      image: {
+        avatar: true,
+        src: "https://react.semantic-ui.com/images/avatar/small/elliot.jpg",
+      },
+    },
+    {
+      value: "stevie",
+      text: "Stevie",
+      image: {
+        avatar: true,
+        src: "https://react.semantic-ui.com/images/avatar/small/stevie.jpg",
+      },
+    },
+    {
+      value: "christian",
+      text: "Christian",
+      image: {
+        avatar: true,
+        src: "https://react.semantic-ui.com/images/avatar/small/christian.jpg",
+      },
+    },
+  ];
+
   const [musician, setMusician] = useState(undefined);
   const [open, setOpen] = React.useState(false);
 
@@ -26,13 +53,20 @@ const MusicianForm = ({ buttonTrigger, id }) => {
     specialityOptions[0].value
   );
 
+  const [imageValue, setImageValue] = useState(imageOptions[0].image.src);
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    //find image in imageOptions with imageValue and return image.src
+    const image = imageOptions.find((image) => image.value === imageValue);
+    const imageSrc = image.image.src;
+
     if (id !== undefined) {
       const formData = new FormData(e.target);
+
       const musician = {
         nickname: formData.get("nickname"),
-        image: formData.get("image"),
+        image: imageSrc,
         //get speciality value from dropdown
         speciality: specialityValue,
       };
@@ -52,7 +86,7 @@ const MusicianForm = ({ buttonTrigger, id }) => {
       const formData = new FormData(e.target);
       const musician = {
         nickname: formData.get("nickname"),
-        image: formData.get("image"),
+        image: imageSrc,
         //get speciality value from dropdown
         speciality: specialityValue,
       };
@@ -98,12 +132,17 @@ const MusicianForm = ({ buttonTrigger, id }) => {
                 required={true}
                 id="form-input-first-name"
               />
-              <Form.Input
+              <Form.Dropdown
                 fluid
+                selection
                 name="image"
                 label="Image"
                 placeholder={musician ? musician.image : "Choisissez une image"}
                 required={true}
+                options={imageOptions}
+                onChange={(e, { value }) => {
+                  setImageValue(value);
+                }}
               />
               <Form.Dropdown
                 fluid

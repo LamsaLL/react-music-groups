@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./components/App/App.jsx";
 import reportWebVitals from "./reportWebVitals";
-
+import { BrowserRouter } from "react-router-dom";
 const styleLink = document.createElement("link");
 styleLink.rel = "stylesheet";
 styleLink.href =

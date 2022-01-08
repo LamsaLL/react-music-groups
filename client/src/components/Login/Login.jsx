@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Grid, GridColumn, Form, Segment, Button } from "semantic-ui-react";
 import PropTypes from "prop-types";
+import base64 from "base-64";
 
 const Login = ({ setToken }) => {
   //State for username and password
+  const [screen, setScreen] = useState("auth");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -20,21 +22,19 @@ const Login = ({ setToken }) => {
 
   //Function to handle form submission
   const handleSubmit = (event) => {
+    console.log("onSubmit");
     event.preventDefault();
-    fetch("http://localhost:3001/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: username,
-        password: password,
-      }),
-    })
+    const headers = new Headers();
+    headers.set(
+      "Authorization",
+      "Basic " + base64.encode(username + ":" + password)
+    );
+
+    fetch("http://localhost:3001/login", { headers: headers })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        setToken(data.token);
+        console.log("datas: " + data.screen);
+        localStorage.setItem("user", JSON.stringify(data.screen));
       });
   };
 
@@ -61,12 +61,7 @@ const Login = ({ setToken }) => {
               type="password"
             />
 
-            <Button
-              color="teal"
-              fluid
-              size="large"
-              onClick={() => handleSubmit}
-            >
+            <Button color="teal" fluid size="large" onClick={handleSubmit}>
               Connexion
             </Button>
           </Segment>

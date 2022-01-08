@@ -9,12 +9,16 @@ const panes = [
   {
     menuItem: "Musiciens",
     render: () => {
+      const admin = localStorage.getItem("admin");
       return (
         <Tab.Pane>
           <h1>Musiciens</h1>
-          <MusicianForm
-            buttonTrigger={<Button floated="right">Ajouter</Button>}
-          />
+          {admin ? (
+            <MusicianForm
+              buttonTrigger={<Button floated="right">Ajouter</Button>}
+            />
+          ) : null}
+
           <MusiciansItem></MusiciansItem>
         </Tab.Pane>
       );
@@ -22,15 +26,21 @@ const panes = [
   },
   {
     menuItem: "Groupes",
-    render: () => (
-      <Tab.Pane>
-        <h1>Groupes</h1>
-        <GroupForm
-          buttonTrigger={<Button floated="right">Ajouter</Button>}
-        ></GroupForm>
-        <GroupsItem></GroupsItem>
-      </Tab.Pane>
-    ),
+    render: () => {
+      const admin = localStorage.getItem("admin");
+
+      return (
+        <Tab.Pane>
+          <h1>Groupes</h1>
+          {admin ? (
+            <GroupForm
+              buttonTrigger={<Button floated="right">Ajouter</Button>}
+            ></GroupForm>
+          ) : null}
+          <GroupsItem></GroupsItem>
+        </Tab.Pane>
+      );
+    },
   },
 ];
 

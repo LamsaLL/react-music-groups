@@ -3,9 +3,11 @@ import { NavLink } from "react-router-dom";
 import { Grid, GridColumn, Form, Segment, Button } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import base64 from "base-64";
+import { useNavigate } from "react-router-dom";
 
 const Login = ({ setToken }) => {
   //State for username and password
+  const navigate = useNavigate();
   const [screen, setScreen] = useState("auth");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -33,8 +35,8 @@ const Login = ({ setToken }) => {
     fetch("http://localhost:3001/login", { headers: headers })
       .then((response) => response.json())
       .then((data) => {
-        console.log("datas: " + data.screen);
-        localStorage.setItem("user", JSON.stringify(data.screen));
+        localStorage.setItem("admin", JSON.stringify(data.screen));
+        navigate("/");
       });
   };
 

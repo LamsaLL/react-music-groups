@@ -5,6 +5,8 @@ import { Popup } from "semantic-ui-react";
 import GroupForm from "../GroupForm/GroupForm.jsx";
 
 const GroupsItem = () => {
+  const admin = localStorage.getItem("admin");
+
   //delete groups on button click
   const handleDelete = useCallback((id) => {
     fetch(`http://localhost:3001/group/${id}`, {
@@ -19,7 +21,7 @@ const GroupsItem = () => {
     fetch("http://localhost:3001/groups")
       .then((response) => response.json())
       .then((data) => setGroups(data.filter((x) => x)));
-  }, [handleDelete]);
+  }, []);
 
   return (
     <Item.Group>
@@ -35,25 +37,27 @@ const GroupsItem = () => {
             <Item.Header as="a">{group.name}</Item.Header>
 
             <Item.Description>{group.description}</Item.Description>
-            <Item.Extra>
-              <Button
-                basic
-                floated="right"
-                color="red"
-                onClick={() => handleDelete(group.id)}
-              >
-                Supprimer
-              </Button>
+            {admin ? (
+              <Item.Extra>
+                <Button
+                  basic
+                  floated="right"
+                  color="red"
+                  onClick={() => handleDelete(group.id)}
+                >
+                  Supprimer
+                </Button>
 
-              <GroupForm
-                id={group.id}
-                buttonTrigger={
-                  <Button basic floated="right" color="blue">
-                    Modifier
-                  </Button>
-                }
-              ></GroupForm>
-            </Item.Extra>
+                <GroupForm
+                  id={group.id}
+                  buttonTrigger={
+                    <Button basic floated="right" color="blue">
+                      Modifier
+                    </Button>
+                  }
+                ></GroupForm>
+              </Item.Extra>
+            ) : null}
           </Item.Content>
         </Item>
       ))}

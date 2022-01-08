@@ -2,20 +2,29 @@
 import React, { Component } from "react";
 import { Route, Redirect, NavLink } from "react-router-dom";
 import MusicTab from "../MusicTab/MusicTab.jsx";
-import { Container } from "semantic-ui-react";
+import { Container, Link, Button } from "semantic-ui-react";
 
 const Home = () => {
+  const handleLogoutClick = () => {
+    localStorage.removeItem("admin");
+
+    fetch("http://localhost:3001/logout", {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+
+    window.location.reload();
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <Container>
-          <NavLink to="/login" activeClassName="hurray">
-            Login
-          </NavLink>
-          <MusicTab />
-        </Container>
-      </header>
-    </div>
+    <Container>
+      <NavLink to="/login" activeClassName="hurray">
+        Login
+      </NavLink>
+      <Button onClick={handleLogoutClick}>Logout </Button>
+      <MusicTab />
+    </Container>
   );
 };
 

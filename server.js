@@ -9,6 +9,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 
 const loginRouter = require("./routes/login");
+const logoutRouter = require("./routes/logout");
 const cookieRouter = require("./routes/cookie");
 const musiciansRouter = require("./routes/musicians");
 const musicianRouter = require("./routes/musician");
@@ -21,6 +22,7 @@ app.use(bodyParser.json());
 app.use(cookieParser("82e4e438a0705fabf61f9854e3b575af"));
 //Routes
 app.use(loginRouter);
+app.use(logoutRouter);
 app.use(cookieRouter);
 app.use(musiciansRouter);
 app.use(musicianRouter);

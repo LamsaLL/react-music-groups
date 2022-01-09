@@ -4,7 +4,7 @@ const fs = require("fs");
 const dbPath = `${process.cwd()}/db/db.json`;
 
 router.get("/groups", (req, res) => {
-  //read the db.json file
+  // Read the db.json file
   fs.readFile(dbPath, "utf8", (err, data) => {
     if (err) {
       console.log(err);
@@ -17,7 +17,7 @@ router.get("/groups", (req, res) => {
 });
 
 router.get("/groupsWithMusicians", (req, res) => {
-  //read the db.json file
+  // Read the db.json file
   fs.readFile(dbPath, "utf8", (err, data) => {
     if (err) {
       console.log(err);
@@ -26,7 +26,7 @@ router.get("/groupsWithMusicians", (req, res) => {
       const musicians = JSON.parse(data).musicians;
       const groups = JSON.parse(data).groups;
 
-      //Add for each group the musicians array matching the musiciansId array
+      // Add for each group the musicians array matching the musiciansId array
       const groupsWithMusicians = Object.keys(groups).map((groupId) => {
         const group = groups[groupId];
         if (group !== null) {

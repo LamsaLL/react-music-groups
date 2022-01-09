@@ -5,9 +5,9 @@
     null,
     {
       "id": 3,
-      "nickname": "test3m",
+      "nickname": "test3",
       "image": "https://react.semantic-ui.com/images/avatar/small/elliot.jpg",
-      "speciality": "bassiste"
+      "speciality": "guitariste"
     },
     null,
     null,
@@ -15,40 +15,59 @@
     null,
     {
       "id": 8,
-      "nickname": "dsd",
+      "nickname": "aa",
+      "image": "https://react.semantic-ui.com/images/avatar/small/elliot.jpg",
+      "speciality": "guitariste"
+    },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    {
+      "nickname": "bbbb",
       "image": "https://react.semantic-ui.com/images/avatar/small/stevie.jpg",
-      "speciality": "chanteur"
-    }
-  ],
-  "muicians_groups": [
-    { "m_id": 3, "g_id": 0 },
-    { "m_id": 0, "g_id": 1 },
-    { "m_id": 1, "g_id": 1 }
+      "speciality": "chanteur",
+      "id": 15
+    },
+    null
   ],
   "groups": [
-    {
-      "id": 0,
-      "name": "group1",
-      "image": "de",
-      "description": "test1",
-      "musiciansId": [3, 8]
-    },
+    null,
     null,
     null,
     {
       "name": "group2",
-      "image": "dzadaz",
+      "image": "https://semantic-ui.com/images/avatar/small/nan.jpg",
       "description": "dzadazdazd",
-      "musiciansId": [3, 8],
+      "musiciansId": [8],
       "id": 3
     },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
     {
-      "name": "group3",
-      "image": "fezfez",
-      "description": "fezfez",
-      "musiciansId": [3, 8],
-
-      "id": 4
+      "name": "a",
+      "image": "https://semantic-ui.com/images/avatar2/small/patrick.png",
+      "description": "aaaaaaa",
+      "musiciansId": [8, 3],
+      "id": 13
+    },
+    null,
+    null,
+    {
+      "name": "b",
+      "image": "https://semantic-ui.com/images/avatar2/small/patrick.png",
+      "description": "bbbbbbbb",
+      "musiciansId": [15, 3, 8],
+      "id": 16
     }
   ]
 }

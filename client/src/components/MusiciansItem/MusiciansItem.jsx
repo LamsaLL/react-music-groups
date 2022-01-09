@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Image, Item } from "semantic-ui-react";
+import { Button, Item } from "semantic-ui-react";
 import { useEffect, useState } from "react";
 import { Popup } from "semantic-ui-react";
 import MusicianForm from "../MusicianForm/MusicianForm";
@@ -18,7 +18,7 @@ const MusiciansItem = () => {
     })
       .then((response) => response.json())
       .then((data) =>
-        toast.success("Groupe supprimé avec succès", {
+        toast.success("Musicien supprimé avec succès", {
           position: "top-right",
           autoClose: 2000,
           closeOnClick: true,
@@ -42,12 +42,18 @@ const MusiciansItem = () => {
             content={`Surnom: ${musician.nickname}`}
             on="click"
             pinned
-            trigger={<Item.Image size="tiny" src={musician.image} />}
+            trigger={<Item.Image size="small" src={musician.image} />}
           />
           <Item.Content>
             <Item.Header as="a">{musician.nickname}</Item.Header>
 
-            <Item.Description>{musician.speciality}</Item.Description>
+            <Item.Description>
+              {
+                // Upper first letter of speciality
+                musician.speciality.charAt(0).toUpperCase() +
+                  musician.speciality.slice(1)
+              }
+            </Item.Description>
             {admin ? (
               <Item.Extra>
                 <Button

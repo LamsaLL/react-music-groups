@@ -4,7 +4,7 @@ const fs = require("fs");
 const dbPath = `${process.cwd()}/db/db.json`;
 
 router.get("/group/:id", (req, res) => {
-  //read file and get group with id
+  // Read file and get group with id
   fs.readFile(dbPath, "utf8", (err, data) => {
     if (err) {
       console.log(err);
@@ -25,7 +25,7 @@ router.get("/group/:id", (req, res) => {
 
 router.post("/group", (req, res) => {
   const newGroup = req.body;
-  //write to the db.json file
+  // Write to the db.json file
   fs.readFile(dbPath, "utf8", (err, data) => {
     if (err) {
       console.log(err);
@@ -33,7 +33,7 @@ router.post("/group", (req, res) => {
     } else {
       const db = JSON.parse(data);
       const groups = JSON.parse(data).groups;
-      //add id to new group
+      // Add id to new group
       newGroup.id = groups.length;
 
       db.groups.push(newGroup);
@@ -93,7 +93,7 @@ router.delete("/group/:id", (req, res) => {
       console.log(err);
       res.status(500).send("Server Error");
     } else {
-      //set element null if id match with id of element
+      // Set element null if id match with id of element
       const db = JSON.parse(data);
       if (id < 0) {
         res.status(404).send("Group not found");

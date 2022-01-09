@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Grid, GridColumn, Form, Segment, Button } from "semantic-ui-react";
+import { Grid, Form, Segment, Button } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import base64 from "base-64";
 import { useNavigate } from "react-router-dom";
 
-const Login = ({ setToken }) => {
+const Login = () => {
   // State for username and password
   const navigate = useNavigate();
   const [screen, setScreen] = useState("auth");

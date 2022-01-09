@@ -1,9 +1,9 @@
 // This component renders the home page.
-import React, { Component } from "react";
-import { Route, Redirect, NavLink } from "react-router-dom";
+import React from "react";
+import { NavLink } from "react-router-dom";
 import MusicTab from "../MusicTab/MusicTab.jsx";
-import { Container, Link, Button, Segment } from "semantic-ui-react";
-import { ToastContainer, toast } from "react-toastify";
+import { Container, Button, Segment } from "semantic-ui-react";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Home = () => {
@@ -25,10 +25,10 @@ const Home = () => {
     <Container>
       <Segment textAlign="right">
         {admin ? (
-          <Button onClick={handleLogoutClick}>Logout </Button>
+          <Button onClick={handleLogoutClick}>Déconnexion </Button>
         ) : (
           <Button as={NavLink} to="/login">
-            Login
+            Connexion
           </Button>
         )}
       </Segment>

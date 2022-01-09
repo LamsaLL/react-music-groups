@@ -1,11 +1,9 @@
-//require express
 const express = require("express");
 const app = express();
 const port = 3001;
 
 const cors = require("cors");
 const bodyParser = require("body-parser");
-
 const cookieParser = require("cookie-parser");
 
 const loginRouter = require("./routes/login");
@@ -16,11 +14,11 @@ const musicianRouter = require("./routes/musician");
 const groupsRouter = require("./routes/groups");
 const groupRouter = require("./routes/group");
 
-//Middlewares
+// Middlewares
 app.use(cors());
 app.use(bodyParser.json());
 app.use(cookieParser("82e4e438a0705fabf61f9854e3b575af"));
-//Routes
+// Routes
 app.use(loginRouter);
 app.use(logoutRouter);
 app.use(cookieRouter);
@@ -29,7 +27,7 @@ app.use(musicianRouter);
 app.use(groupsRouter);
 app.use(groupRouter);
 
-//express listen on port 300
+//express listen on port 3001
 app.listen(port, () => {
   console.log(`istening on port ${port})`);
 });

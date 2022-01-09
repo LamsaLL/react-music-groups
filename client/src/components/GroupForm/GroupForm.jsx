@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { Container, Form, Modal, Button, Dropdown } from "semantic-ui-react";
+import React, { useState, useEffect } from "react";
+import { Container, Form, Modal, Button } from "semantic-ui-react";
+import { toast } from "react-toastify";
 
 const GroupForm = ({ buttonTrigger, id }) => {
   const [group, setGroup] = useState(undefined);
@@ -58,7 +59,15 @@ const GroupForm = ({ buttonTrigger, id }) => {
         body: JSON.stringify(group),
       })
         .then((response) => response.json())
-        .then((data) => console.log(data));
+        .then((data) =>
+          toast.success("Groupe modifié avec succès", {
+            position: "top-right",
+            autoClose: 2000,
+            closeOnClick: true,
+            draggable: true,
+            progress: undefined,
+          })
+        );
     } else {
       fetch("http://localhost:3001/group", {
         method: "POST",
@@ -69,10 +78,17 @@ const GroupForm = ({ buttonTrigger, id }) => {
         body: JSON.stringify(group),
       })
         .then((response) => response.json())
-        .then((data) => console.log(data));
+        .then((data) =>
+          toast.success("Groupe ajouté avec succès", {
+            position: "top-right",
+            autoClose: 2000,
+            closeOnClick: true,
+            draggable: true,
+            progress: undefined,
+          })
+        );
     }
     setOpen(false);
-    window.location.reload();
   };
 
   // If id is defined we fetch the group with the id
@@ -122,7 +138,6 @@ const GroupForm = ({ buttonTrigger, id }) => {
               label="Image"
               placeholder={"Choisissez une image"}
               required={true}
-              defaultValue={group ? group.image : ""}
               options={imageOptions}
               onChange={(e, { value }) => {
                 setImageValue(value);

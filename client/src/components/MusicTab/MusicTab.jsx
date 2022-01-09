@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Tab, Button, Modal, Form, Container } from "semantic-ui-react";
+import React from "react";
+import { Tab, Button } from "semantic-ui-react";
 import MusicianForm from "../MusicianForm/MusicianForm.jsx";
 import MusiciansItem from "../MusiciansItem/MusiciansItem.jsx";
 import GroupForm from "../GroupForm/GroupForm.jsx";

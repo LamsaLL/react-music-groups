@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { Container, Form, Modal, Button, Dropdown } from "semantic-ui-react";
+import React, { useState, useEffect } from "react";
+import { Container, Form, Modal, Button } from "semantic-ui-react";
+import { toast } from "react-toastify";
 
 const MusicianForm = ({ buttonTrigger, id }) => {
   const specialityOptions = [
@@ -57,7 +58,7 @@ const MusicianForm = ({ buttonTrigger, id }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //find image in imageOptions with imageValue and return image.src
+    // Find image in imageOptions with imageValue and return image.src
     const image = imageOptions.find((image) => image.value === imageValue);
     const imageSrc = image.image.src;
     const formData = new FormData(e.target);
@@ -65,7 +66,7 @@ const MusicianForm = ({ buttonTrigger, id }) => {
     const musician = {
       nickname: formData.get("nickname"),
       image: imageSrc,
-      //get speciality value from dropdown
+      // Get speciality value from dropdown
       speciality: specialityValue,
     };
 
@@ -78,7 +79,15 @@ const MusicianForm = ({ buttonTrigger, id }) => {
         body: JSON.stringify(musician),
       })
         .then((response) => response.json())
-        .then((data) => console.log(data));
+        .then((data) =>
+          toast.success("Musicien modifié avec succès", {
+            position: "top-right",
+            autoClose: 2000,
+            closeOnClick: true,
+            draggable: true,
+            progress: undefined,
+          })
+        );
     } else {
       fetch("http://localhost:3001/musician", {
         method: "POST",
@@ -89,7 +98,15 @@ const MusicianForm = ({ buttonTrigger, id }) => {
         body: JSON.stringify(musician),
       })
         .then((response) => response.json())
-        .then((data) => console.log(data));
+        .then((data) =>
+          toast.success("Musicien ajouté avec succès", {
+            position: "top-right",
+            autoClose: 2000,
+            closeOnClick: true,
+            draggable: true,
+            progress: undefined,
+          })
+        );
     }
     setOpen(false);
   };
@@ -116,7 +133,7 @@ const MusicianForm = ({ buttonTrigger, id }) => {
                 fluid
                 name="nickname"
                 label="Surnom"
-                placeholder={musician ? musician.nickname : "Entrez un surnom"}
+                placeholder={"Entrez un surnom"}
                 required={true}
                 defaultValue={musician ? musician.nickname : ""}
                 id="form-input-first-name"
@@ -126,9 +143,8 @@ const MusicianForm = ({ buttonTrigger, id }) => {
                 selection
                 name="image"
                 label="Image"
-                placeholder={musician ? musician.image : "Choisissez une image"}
+                placeholder={"Choisissez une image"}
                 required={true}
-                defaultValue={musician ? musician.image : ""}
                 options={imageOptions}
                 onChange={(e, { value }) => {
                   setImageValue(value);
@@ -139,9 +155,7 @@ const MusicianForm = ({ buttonTrigger, id }) => {
                 selection
                 name="speciality"
                 label="Specialité"
-                placeholder={
-                  musician ? musician.speciality : "Choisissez une spécialité"
-                }
+                placeholder={"Choisissez une spécialité"}
                 required={true}
                 options={specialityOptions}
                 defaultValue={musician ? musician.speciality : ""}

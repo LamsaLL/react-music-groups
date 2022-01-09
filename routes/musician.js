@@ -4,7 +4,7 @@ const fs = require("fs");
 const dbPath = `${process.cwd()}/db/db.json`;
 
 router.get("/musician/:id", (req, res) => {
-  //read file and get musician with id
+  // Read file and get musician with id
   fs.readFile(dbPath, "utf8", (err, data) => {
     if (err) {
       console.log(err);
@@ -12,7 +12,7 @@ router.get("/musician/:id", (req, res) => {
     } else {
       const musicianId = req.params.id;
       const db = JSON.parse(data).musicians;
-      //find musician with id
+      // Find musician with id
       const musician = db[musicianId];
       if (musician) {
         res.status(200).send(musician);
@@ -25,7 +25,7 @@ router.get("/musician/:id", (req, res) => {
 
 router.post("/musician", (req, res) => {
   const newMusician = req.body;
-  //write to the db.json file
+  // Write to the db.json file
   fs.readFile(dbPath, "utf8", (err, data) => {
     if (err) {
       console.log(err);
@@ -33,7 +33,7 @@ router.post("/musician", (req, res) => {
     } else {
       const db = JSON.parse(data);
       const musicians = JSON.parse(data).musicians;
-      //add id to new musician
+      // Add id to new musician
       newMusician.id = musicians.length;
 
       db.musicians.push(newMusician);
@@ -93,7 +93,7 @@ router.delete("/musician/:id", (req, res) => {
       console.log(err);
       res.status(500).send("Server Error");
     } else {
-      //set element null if id match with id of element
+      // Set element null if id match with id of element
       const db = JSON.parse(data);
       if (id === -1) {
         res.status(404).send("Musician not found");

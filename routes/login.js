@@ -3,7 +3,6 @@ const basicAuth = require("express-basic-auth");
 
 const router = express.Router();
 
-// A random key for signing the cookie
 const auth = basicAuth({
   users: {
     admin: "ajax",

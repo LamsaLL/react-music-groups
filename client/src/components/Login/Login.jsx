@@ -6,25 +6,24 @@ import base64 from "base-64";
 import { useNavigate } from "react-router-dom";
 
 const Login = ({ setToken }) => {
-  //State for username and password
+  // State for username and password
   const navigate = useNavigate();
   const [screen, setScreen] = useState("auth");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  //Function to handle username change
+  // Function to handle username change
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
   };
 
-  //Function to handle password change
+  // Function to handle password change
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
 
-  //Function to handle form submission
+  // Function to handle form submission
   const handleSubmit = (event) => {
-    console.log("onSubmit");
     event.preventDefault();
     const headers = new Headers();
     headers.set(
@@ -51,7 +50,7 @@ const Login = ({ setToken }) => {
               value={username}
               onChange={handleUsernameChange}
               iconPosition="left"
-              placeholder="Identifiant"
+              placeholder="admin"
             />
             <Form.Input
               fluid
@@ -59,7 +58,7 @@ const Login = ({ setToken }) => {
               value={password}
               onChange={handlePasswordChange}
               iconPosition="left"
-              placeholder="Mot de passe"
+              placeholder="ajax"
               type="password"
             />
 

@@ -2,9 +2,13 @@
 import React, { Component } from "react";
 import { Route, Redirect, NavLink } from "react-router-dom";
 import MusicTab from "../MusicTab/MusicTab.jsx";
-import { Container, Link, Button } from "semantic-ui-react";
+import { Container, Link, Button, Segment } from "semantic-ui-react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Home = () => {
+  const admin = localStorage.getItem("admin");
+
   const handleLogoutClick = () => {
     localStorage.removeItem("admin");
 
@@ -19,11 +23,19 @@ const Home = () => {
 
   return (
     <Container>
-      <NavLink to="/login" activeClassName="hurray">
-        Login
-      </NavLink>
-      <Button onClick={handleLogoutClick}>Logout </Button>
-      <MusicTab />
+      <Segment textAlign="right">
+        {admin ? (
+          <Button onClick={handleLogoutClick}>Logout </Button>
+        ) : (
+          <Button as={NavLink} to="/login">
+            Login
+          </Button>
+        )}
+      </Segment>
+      <Segment>
+        <MusicTab />
+      </Segment>
+      <ToastContainer></ToastContainer>
     </Container>
   );
 };

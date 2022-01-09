@@ -40,7 +40,7 @@ const MusicianForm = ({ buttonTrigger, id }) => {
   const [musician, setMusician] = useState(undefined);
   const [open, setOpen] = React.useState(false);
 
-  //if id is defined we fetch the musician with the id
+  // If id is defined we fetch the musician with the id
   useEffect(() => {
     if (id !== undefined) {
       fetch(`http://localhost:3001/musician/${id}`)
@@ -60,17 +60,16 @@ const MusicianForm = ({ buttonTrigger, id }) => {
     //find image in imageOptions with imageValue and return image.src
     const image = imageOptions.find((image) => image.value === imageValue);
     const imageSrc = image.image.src;
+    const formData = new FormData(e.target);
+
+    const musician = {
+      nickname: formData.get("nickname"),
+      image: imageSrc,
+      //get speciality value from dropdown
+      speciality: specialityValue,
+    };
 
     if (id !== undefined) {
-      const formData = new FormData(e.target);
-
-      const musician = {
-        nickname: formData.get("nickname"),
-        image: imageSrc,
-        //get speciality value from dropdown
-        speciality: specialityValue,
-      };
-
       fetch(`http://localhost:3001/musician/${id}`, {
         method: "PATCH",
         headers: {
@@ -80,17 +79,7 @@ const MusicianForm = ({ buttonTrigger, id }) => {
       })
         .then((response) => response.json())
         .then((data) => console.log(data));
-
-      setOpen(false);
     } else {
-      const formData = new FormData(e.target);
-      const musician = {
-        nickname: formData.get("nickname"),
-        image: imageSrc,
-        //get speciality value from dropdown
-        speciality: specialityValue,
-      };
-
       fetch("http://localhost:3001/musician", {
         method: "POST",
         headers: {
@@ -101,9 +90,8 @@ const MusicianForm = ({ buttonTrigger, id }) => {
       })
         .then((response) => response.json())
         .then((data) => console.log(data));
-
-      setOpen(false);
     }
+    setOpen(false);
   };
 
   return (
@@ -130,6 +118,7 @@ const MusicianForm = ({ buttonTrigger, id }) => {
                 label="Surnom"
                 placeholder={musician ? musician.nickname : "Entrez un surnom"}
                 required={true}
+                defaultValue={musician ? musician.nickname : ""}
                 id="form-input-first-name"
               />
               <Form.Dropdown
@@ -139,6 +128,7 @@ const MusicianForm = ({ buttonTrigger, id }) => {
                 label="Image"
                 placeholder={musician ? musician.image : "Choisissez une image"}
                 required={true}
+                defaultValue={musician ? musician.image : ""}
                 options={imageOptions}
                 onChange={(e, { value }) => {
                   setImageValue(value);
@@ -154,6 +144,7 @@ const MusicianForm = ({ buttonTrigger, id }) => {
                 }
                 required={true}
                 options={specialityOptions}
+                defaultValue={musician ? musician.speciality : ""}
                 onChange={(e, { value }) => setSpecialityValue(value)}
               />
             </Modal.Content>

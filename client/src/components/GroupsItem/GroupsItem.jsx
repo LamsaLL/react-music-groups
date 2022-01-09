@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Image, Item } from "semantic-ui-react";
 import { useEffect, useState, useCallback } from "react";
-import { Popup } from "semantic-ui-react";
+import { Popup, Segment } from "semantic-ui-react";
 import GroupForm from "../GroupForm/GroupForm.jsx";
 
 const GroupsItem = () => {
@@ -18,7 +18,7 @@ const GroupsItem = () => {
   //get all groups with fetch useEffect
   const [groups, setGroups] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:3001/groups")
+    fetch("http://localhost:3001/groupsWithMusicians")
       .then((response) => response.json())
       .then((data) => setGroups(data.filter((x) => x)));
   }, []);
@@ -58,6 +58,10 @@ const GroupsItem = () => {
                 ></GroupForm>
               </Item.Extra>
             ) : null}
+            <Segment>
+              Musiciens:{" "}
+              {group.musicians.map((musician) => musician.nickname + "  ")}
+            </Segment>
           </Item.Content>
         </Item>
       ))}

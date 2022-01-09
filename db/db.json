@@ -20,26 +20,18 @@
       "speciality": "chanteur"
     }
   ],
+  "muicians_groups": [
+    { "m_id": 3, "g_id": 0 },
+    { "m_id": 0, "g_id": 1 },
+    { "m_id": 1, "g_id": 1 }
+  ],
   "groups": [
     {
       "id": 0,
       "name": "group1",
       "image": "de",
       "description": "test1",
-      "musicians": [
-        {
-          "id": 1,
-          "nickname": "test1",
-          "image": "de",
-          "speciality": "guitariste"
-        },
-        {
-          "id": 2,
-          "nickname": "test2",
-          "image": "de",
-          "speciality": "guitariste"
-        }
-      ]
+      "musiciansId": [3, 8]
     },
     null,
     null,
@@ -47,8 +39,16 @@
       "name": "group2",
       "image": "dzadaz",
       "description": "dzadazdazd",
+      "musiciansId": [3, 8],
       "id": 3
     },
-    { "name": "group3", "image": "fezfez", "description": "fezfez", "id": 4 }
+    {
+      "name": "group3",
+      "image": "fezfez",
+      "description": "fezfez",
+      "musiciansId": [3, 8],
+
+      "id": 4
+    }
   ]
 }

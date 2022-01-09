@@ -3,21 +3,29 @@ import { Button, Image, Item } from "semantic-ui-react";
 import { useEffect, useState } from "react";
 import { Popup } from "semantic-ui-react";
 import MusicianForm from "../MusicianForm/MusicianForm";
+import { toast } from "react-toastify";
 
 const MusiciansItem = () => {
   const admin = localStorage.getItem("admin");
-  console.log("admin: " + admin);
 
-  //get all musicians with fetch useEffect
+  // Get all musicians with fetch useEffect
   const [musicians, setMusicians] = useState([]);
 
-  //delete musician on button click
+  // Delete musician on button click
   const handleDelete = (id) => {
     fetch(`http://localhost:3001/musician/${id}`, {
       method: "DELETE",
     })
       .then((response) => response.json())
-      .then((data) => console.log(data));
+      .then((data) =>
+        toast.success("Groupe supprimé avec succès", {
+          position: "top-right",
+          autoClose: 2000,
+          closeOnClick: true,
+          draggable: true,
+          progress: undefined,
+        })
+      );
   };
 
   useEffect(() => {

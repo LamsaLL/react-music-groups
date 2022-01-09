@@ -3,9 +3,11 @@ import { Button, Image, Item } from "semantic-ui-react";
 import { useEffect, useState, useCallback } from "react";
 import { Popup, Segment, Label } from "semantic-ui-react";
 import GroupForm from "../GroupForm/GroupForm.jsx";
+import { toast } from "react-toastify";
 
 const GroupsItem = () => {
   const admin = localStorage.getItem("admin");
+  const [groups, setGroups] = useState([]);
 
   //delete groups on button click
   const handleDelete = useCallback((id) => {
@@ -13,10 +15,19 @@ const GroupsItem = () => {
       method: "DELETE",
     })
       .then((response) => response.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        console.log(data);
+        toast.success("Groupe supprimé avec succès", {
+          position: "top-right",
+          autoClose: 2000,
+          closeOnClick: true,
+          draggable: true,
+          progress: undefined,
+        });
+      });
   }, []);
+
   //get all groups with fetch useEffect
-  const [groups, setGroups] = useState([]);
   useEffect(() => {
     fetch("http://localhost:3001/groupsWithMusicians")
       .then((response) => response.json())

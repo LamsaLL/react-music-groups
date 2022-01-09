@@ -8,13 +8,43 @@ const GroupForm = ({ buttonTrigger, id }) => {
 
   const [open, setOpen] = React.useState(false);
 
+  const imageOptions = [
+    {
+      value: "mark",
+      text: "Mark",
+      image: {
+        avatar: true,
+        src: "https://semantic-ui.com/images/avatar2/small/mark.png",
+      },
+    },
+    {
+      value: "patrick",
+      text: "Patrick",
+      image: {
+        avatar: true,
+        src: "https://semantic-ui.com/images/avatar2/small/patrick.png",
+      },
+    },
+    {
+      value: "nan",
+      text: "Nan",
+      image: {
+        avatar: true,
+        src: "https://semantic-ui.com/images/avatar/small/nan.jpg",
+      },
+    },
+  ];
+  const [imageValue, setImageValue] = useState(imageOptions[0].image.src);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    // Find image in imageOptions with imageValue and return image.src
+    const image = imageOptions.find((image) => image.value === imageValue);
+    const imageSrc = image.image.src;
     const formData = new FormData(e.target);
     const group = {
       name: formData.get("name"),
-      image: formData.get("image"),
+      image: imageSrc,
       description: formData.get("description"),
       musiciansId: selectedMusicians,
     };
@@ -80,26 +110,29 @@ const GroupForm = ({ buttonTrigger, id }) => {
               fluid
               name="name"
               label="Nom"
-              placeholder={group ? group.name : "Entrez un nom de groupe"}
+              placeholder={"Entrez un nom de groupe"}
               required={true}
               defaultValue={group ? group.name : ""}
               id="form-input-first-name"
             />
-            <Form.Input
+            <Form.Dropdown
               fluid
+              selection
               name="image"
               label="Image"
-              placeholder={group ? group.image : "Choisissez une image"}
+              placeholder={"Choisissez une image"}
               required={true}
               defaultValue={group ? group.image : ""}
+              options={imageOptions}
+              onChange={(e, { value }) => {
+                setImageValue(value);
+              }}
             />
             <Form.Input
               fluid
               name="description"
               label="Description"
-              placeholder={
-                group ? group.description : "Choisissez une description"
-              }
+              placeholder={"Choisissez une description"}
               required={true}
               defaultValue={group ? group.description : ""}
             />

@@ -4,6 +4,7 @@ import { Container, Form, Modal, Button, Dropdown } from "semantic-ui-react";
 const GroupForm = ({ buttonTrigger, id }) => {
   const [group, setGroup] = useState(undefined);
   const [musicians, setMusicians] = useState([]);
+  const [musiciansValue, setMusiciansValue] = useState([]);
 
   const [open, setOpen] = React.useState(false);
 
@@ -15,6 +16,7 @@ const GroupForm = ({ buttonTrigger, id }) => {
         name: formData.get("name"),
         image: formData.get("image"),
         description: formData.get("description"),
+        musicians: musiciansValue,
       };
 
       fetch(`http://localhost:3001/group/${id}`, {
@@ -34,6 +36,7 @@ const GroupForm = ({ buttonTrigger, id }) => {
         name: formData.get("name"),
         image: formData.get("image"),
         description: formData.get("description"),
+        musiciansId: musiciansValue,
       };
 
       fetch("http://localhost:3001/group", {
@@ -121,6 +124,9 @@ const GroupForm = ({ buttonTrigger, id }) => {
                   text: musician.nickname,
                   value: musician.id,
                 }))}
+                onChange={(e, { value }) => {
+                  setMusiciansValue(value);
+                }}
               />
             </Modal.Content>
             <Modal.Actions>

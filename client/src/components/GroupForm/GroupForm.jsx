@@ -3,6 +3,8 @@ import { Container, Form, Modal, Button, Dropdown } from "semantic-ui-react";
 
 const GroupForm = ({ buttonTrigger, id }) => {
   const [group, setGroup] = useState(undefined);
+  const [musicians, setMusicians] = useState([]);
+
   const [open, setOpen] = React.useState(false);
 
   const handleSubmit = (e) => {
@@ -49,7 +51,7 @@ const GroupForm = ({ buttonTrigger, id }) => {
     }
   };
 
-  //if id is defined we fetch the group with the id
+  // If id is defined we fetch the group with the id
   useEffect(() => {
     if (id !== undefined) {
       fetch(`http://localhost:3001/group/${id}`)
@@ -57,6 +59,15 @@ const GroupForm = ({ buttonTrigger, id }) => {
         .then((data) => setGroup(data));
     }
   }, [id]);
+
+  // Get all musicians
+  useEffect(() => {
+    fetch("http://localhost:3001/musicians")
+      .then((response) => response.json())
+      .then((data) => setMusicians(data.filter((x) => x)));
+  }, []);
+
+  console.log(musicians);
 
   return (
     <>
@@ -97,6 +108,19 @@ const GroupForm = ({ buttonTrigger, id }) => {
                   group ? group.description : "Choisissez une description"
                 }
                 required={true}
+              />
+              <Form.Dropdown
+                fluid
+                selection
+                name="musicians"
+                label="Musiciens"
+                multiple
+                placeholder={"Choisissez un ou plusieurs musiciens"}
+                options={musicians.map((musician) => ({
+                  key: musician.id,
+                  text: musician.nickname,
+                  value: musician.id,
+                }))}
               />
             </Modal.Content>
             <Modal.Actions>

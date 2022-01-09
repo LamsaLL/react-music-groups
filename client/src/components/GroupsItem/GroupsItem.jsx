@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Image, Item } from "semantic-ui-react";
 import { useEffect, useState, useCallback } from "react";
-import { Popup, Segment } from "semantic-ui-react";
+import { Popup, Segment, Label } from "semantic-ui-react";
 import GroupForm from "../GroupForm/GroupForm.jsx";
 
 const GroupsItem = () => {
@@ -36,7 +36,16 @@ const GroupsItem = () => {
           <Item.Content>
             <Item.Header as="a">{group.name}</Item.Header>
 
-            <Item.Description>{group.description}</Item.Description>
+            <Item.Description>
+              {group.description}
+              <br />
+              {group.musicians.map((musician) => (
+                <Label as="a" color="teal" image>
+                  {musician.nickname}
+                  <Label.Detail>{musician.speciality}</Label.Detail>
+                </Label>
+              ))}
+            </Item.Description>
             {admin ? (
               <Item.Extra>
                 <Button
@@ -58,10 +67,6 @@ const GroupsItem = () => {
                 ></GroupForm>
               </Item.Extra>
             ) : null}
-            <Segment>
-              Musiciens:{" "}
-              {group.musicians.map((musician) => musician.nickname + "  ")}
-            </Segment>
           </Item.Content>
         </Item>
       ))}
